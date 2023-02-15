@@ -43,3 +43,4 @@ jobs:
 * `grafanaPanelID` **Optional**: Used to target a specific panel alongside `grafanaDashboardID`.
 * `grafanaTags` **Optional**: Newline separated tags that will be sent with annotation.
 * `grafanaAnnotationID` **Optional**: If supplied, an exiting annotation will be updated with the end-time as current time.
+* `ignoreSslCert` **Optional**: If supplied, ignores invalid SSL certificate in grafana API.

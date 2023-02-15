@@ -110,4 +110,14 @@ describe('Grafana Annotation Action Tests', () => {
         expect(axios.patch).toBeCalledTimes(1);
         expect(axios.patch).toBeCalledWith(expect.anything(), { timeEnd: expect.any(Number) }, expect.anything());
     });
+
+    test('Update Annotation: update with text', () => {
+        process.env.INPUT_GRAFANAANNOTATIONID = "12345";
+        process.env.INPUT_GRAFANATEXT = 'something else';
+        axios.patch.mockImplementation(() => Promise.resolve({ status: 200}));
+        run();
+        expect(axios.post).toBeCalledTimes(0);
+        expect(axios.patch).toBeCalledTimes(1);
+        expect(axios.patch).toBeCalledWith(expect.anything(), { timeEnd: expect.any(Number), text: expect('something else') }, expect.anything());
+    });
 });

@@ -68,7 +68,8 @@ export const run = () => {
         } else {
             console.log("updating the end time of existing annotation");
             let payload = {
-                timeEnd: moment.now().valueOf()
+                timeEnd: moment.now().valueOf(),
+                text: grafanaText
             };
 
             console.log(`updating the 'time-end' of annotation [${grafanaAnnotationID}]`);

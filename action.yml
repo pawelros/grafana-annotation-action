@@ -31,6 +31,10 @@ inputs:
       Id of previously created annotation to update the "timeEnd" for current
       time.
     required: false
+  ignoreSslCert:
+    description: Ignores invalid grafana SSL certificate
+    default: 'false'
+    required: false
 outputs:
   annotation-id:
     description: >-

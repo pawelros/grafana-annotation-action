@@ -1,5 +1,5 @@
 import {error} from "@actions/core";
-
+const https = require('https');
 const core = require('@actions/core');
 const axios = require('axios');
 const moment = require('moment');
@@ -14,6 +14,9 @@ export const run = () => {
         const grafanaPanelID = Number.parseInt(core.getInput("grafanaPanelID"),10) || undefined;
         const grafanaText = core.getInput("grafanaText", {required: true});
         const grafanaAnnotationID = Number.parseInt(core.getInput("grafanaAnnotationID"), 10) || undefined;
+        const ignoreSslCert = (core.getInput("ignoreSslCert") || "false").toLowerCase() === 'true';
+
+        const httpsAgent = new https.Agent({ rejectUnauthorized: !ignoreSslCert })
 
         let headers = {
             "Content-Type": "application/json",
@@ -49,7 +52,8 @@ export const run = () => {
                 `${grafanaHost}/api/annotations`,
                 payload,
                 {
-                    headers: headers
+                    headers: headers,
+                    httpsAgent: httpsAgent
                 }
             ).then((response) => {
                 if (response.status !== 200) {
@@ -76,7 +80,8 @@ export const run = () => {
                 `${grafanaHost}/api/annotations/${grafanaAnnotationID}`,
                 payload,
                 {
-                    headers: headers
+                    headers: headers,
+                    httpsAgent: httpsAgent
                 }
             ).then((response) => {
                 if (response.status !== 200) {
